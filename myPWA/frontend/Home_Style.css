@@ -1,0 +1,47 @@
+* { 
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+header {
+    width:100vw; 
+    margin-right: 0;
+    right: 0;
+    height:100vh; 
+    background-image: url('stg2.jpg');
+    background-position: bottom;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.NavBar {
+    position:absolute;
+    display:flex;
+    justify-content: right;
+    top:0;
+    background-color: transparent;
+    padding: 20px;
+}
+
+.NavBar a {
+    float:right; 
+    font-size:22px; 
+    font-family: 'Gill Sans';
+    color: white;
+    padding: 10px;
+    text-decoration: double;
+    text-align: right;
+}
+
+.NavBar a:hover {
+    background-color: #505526;
+}
+
+.content {
+    color: white; 
+    font-size:4vmin; 
+    text-align:center;
+}
