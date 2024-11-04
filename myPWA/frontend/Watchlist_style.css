@@ -1,0 +1,63 @@
+* { 
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.Watchlist_Container {
+    width:100%; 
+    height:20vh; 
+    background-image: url('stg2.jpg');
+    background-position: bottom;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.Watchlist_title {
+    color: #ffffE4;
+    font-size: 42px;
+    margin-top: 30px;
+    
+}
+.NavBar {
+    position:absolute;
+    display:flex;
+    justify-content: right;
+    top:0;
+    background-color: transparent;
+    padding: 20px;
+}
+
+.NavBar a {
+    float:right; 
+    font-size:22px; 
+    font-family: 'Gill Sans';
+    color: white;
+    padding: 10px;
+    text-decoration: double;
+    text-align: right;
+}
+
+.NavBar a:hover {
+    background-color: #505526;
+}
+
+form {
+    background-color: #505526;
+    padding:5%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+ 
+}
+
+.Movie_Name {
+    padding:20px;
+    margin:20px;
+    
+}
