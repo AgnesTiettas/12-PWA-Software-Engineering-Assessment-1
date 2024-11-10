@@ -6,9 +6,8 @@
 
 header {
     width:100vw; 
-    margin-right: 0;
-    right: 0;
     height:100vh; 
+    margin:0;
     background-image: url('stg2.jpg');
     background-position: bottom;
     background-size: cover;
