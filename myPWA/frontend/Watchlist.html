@@ -18,24 +18,29 @@
 
     
         <div class="Watchlist_Container">
-            <h2 class="Watchlist_title"> Watchlist</h2>
-        </div> 
+            <h2 class="Watchlist_title"><b>Watchlist<b></b></h2> 
+        </div> <br>
 
-        <div class="Wishlist_Container"> 
+        <div class="form_Container"> 
             <form id="form"> 
                 <label for="Movie_Name" class="Movie_Name">Movie:</label> <br> 
-                <input type="text" id="Movie_Name" name="Movie Name" placeholder="Enter Name of Movie..."> <br>
+                <input type="text" id="Movie_Name" name="Movie_Name" placeholder="Enter Name of Movie..."> <br>
+
+                <label for="Add_Note">Notes: </label>
+                <textarea id="Add_Note" name="Add_Note"></textarea>
     
-                <button type="submit">Add To Wishlist</button>
+                <button type="submit">Add To Watchlist</button>
             </form>
 
             <h2>Watchlist</h2>  <!--Added through input -->
             <div id="Watchlist"> </div>
 
+        </div>
+        
             <script src="Home.js"></script>
 
 
-        </div>
+    
 
 
        
