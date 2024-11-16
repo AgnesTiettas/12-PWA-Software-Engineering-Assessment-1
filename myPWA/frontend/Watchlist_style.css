@@ -2,16 +2,17 @@
     margin:0;
     padding:0;
     box-sizing: border-box;
-    overflow-y:auto;
 }
 
-body{
-    display:flex; 
-    justify-content: center;
+body {
+    background-color:white;
+    overflow-y: auto;
 }
+
 
 .Watchlist_Container {
     width:100%;  
+    margin:0;
     height: 40vh;
     background-image: url('stg2.jpg');
     background-position: bottom;
@@ -25,13 +26,13 @@ body{
 
 
 .form_Container{
-    background-color:#505526; 
-    padding:10px;
-    max-width: 400px;
-    margin-top:20px;
-    min-width:200px;
-    border-radius: 6px;
-    margin-top:300px;
+    background:white; 
+    display:flex; 
+    justify-content: center;
+    width:100%; 
+
+    align-items: center;
+
 }
 
 .Watchlist_title {
@@ -64,7 +65,11 @@ body{
 }
 
 form {
-    padding:5%;
+    background-color:#505526; 
+    padding:2vw 4vw;
+    width:90%;
+    max-width: 600px;
+    border-radius: 8px;
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -75,6 +80,7 @@ label {
     margin-top: 10px; 
 
 
+
 }
 
 .Movie_Name{
@@ -83,11 +89,17 @@ label {
     margin-top:5px;
 }
 
-.input,textarea {
-    padding:8px; 
+.Add_Note {
+    font-size: 30px;
+    color:#ffffE4;
+}
+ form input,form textarea {
+
+    padding:20px; 
     margin-top: 15px;
     border-radius: 4px;
     border:1px solid;
+    background: gainsboro;
 
 
 }
@@ -95,18 +107,28 @@ label {
 
 button {
     margin-top: 10px;
+    cursor:pointer;
     padding: 10px;
     border: none;
     border-radius: 4px;
 
 }
 
-#Watchlist {
+#list {
     margin-top:20px;
 }
+.list_title{
+    color:#ffffE4;
+    font-size: 50px;
+    display:flex; 
+    justify-content: center;
+    text-align: center;
+    margin-top: 8%;
 
-.Movie_Name {
-    padding:20px;
-    margin:20px;
-    
+}
+
+.Movie_item{ 
+    padding:10px; 
+    margin-bottom:10px; 
+    border-radius: 4px;
 }

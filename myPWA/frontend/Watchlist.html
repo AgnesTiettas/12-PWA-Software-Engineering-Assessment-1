@@ -24,20 +24,20 @@
         <div class="form_Container"> 
             <form id="form"> 
                 <label for="Movie_Name" class="Movie_Name">Movie:</label> <br> 
-                <input type="text" id="Movie_Name" name="Movie_Name" placeholder="Enter Name of Movie..."> <br>
+                <input type="text" id="Movie_Name" name="Movie_Name" placeholder="Enter Name of Movie..." required> <br>
 
-                <label for="Add_Note">Notes: </label>
+                <label for="Add_Note" class="Add_Note">Notes: </label>
                 <textarea id="Add_Note" name="Add_Note"></textarea>
     
                 <button type="submit">Add To Watchlist</button>
+                <h2 class="list_title">Watchlist</h2>  <!--Added through input -->
+                <div id="list"> 
+                    <!--Area where movies are added -->
+                </div>
             </form>
-
-            <h2>Watchlist</h2>  <!--Added through input -->
-            <div id="Watchlist"> </div>
-
         </div>
         
-            <script src="Home.js"></script>
+        <script src="Home.js"></script>
 
 
     
