@@ -13,7 +13,7 @@
             <a class="Logo" href="Home.html">Home</a>
             <a href="Movies.html">Movies</a>
             <a href="Watchlist.html">Watchlist</a>
-            <a href="Favourites.html">Favourites</a>
+        
         </div>
 
     
@@ -24,7 +24,20 @@
         <div class="form_Container"> 
             <form id="form"> 
                 <label for="Movie_Name" class="Movie_Name">Movie:</label> <br> 
-                <input type="text" id="Movie_Name" name="Movie_Name" placeholder="Enter Name of Movie..." required> <br>
+                <select name="Movie_Name" id="Movies_Name"> 
+                    <optgroup label="Action">
+                        <option value="httyd">How to train your dragon</option>
+                        <option value="HPATPS">Harry Potter and the philosopher's stone</option>
+                    </optgroup>
+
+                    <optgroup label="Romance">
+                        <option value="Tangled">Tangled (2010)</option>
+                        <option value="Cinderella">Cinderella (2015)</option>
+                        <option value="Corpse_Bride">Corpse Bride (2005)</option>
+                        <option value="Beauty_and_the_Beast">Beauty and the Beast (1991)</option>
+
+                    </optgroup>
+                </select>
 
                 <label for="Add_Note" class="Add_Note">Notes: </label>
                 <textarea id="Add_Note" name="Add_Note"></textarea>

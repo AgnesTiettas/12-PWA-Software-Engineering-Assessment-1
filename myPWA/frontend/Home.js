@@ -29,5 +29,56 @@ function addWatchlistItem(event) {
 
 function loadWatchlistItem() {
     fetch('http://localhost:3001/api/Watchlist-Items')
+        .then(response => response.json())
+        .then(data => {
+            list.innerHTML ='';
+            data.forEach(item => {
+                const Movie_item = document.createElement('div');
+                Movie_item.className= 'Movie_item';
+                Movie_item.dataset.id=item.id; 
+                Movie_item.innerHTML =`
+                    <h3>${item.Name}</h3>
+                    <p>Notes: ${item.notes}</p>
+                    <button class="delete-btn">Delete</button>
+                `;
+                list.appendChild(Movie_item);
+            });
+            const deleteButtons = document.querySelectorAll('.delete-btn');  
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', deleteStudySession);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching study sessions:', error);
+        });
 }
 
+
+function deleteStudySession(event){
+    const Movie_item = event.target.parentElement;
+    const Movie_ID = Movie_item.dataset.id;
+
+    fetch(`http://localhost:3001/api/Watchlist-Items/${Movie_ID}`, {
+        method:'DELETE',
+    })
+
+    .then(response=> {
+        if(response.ok) {
+            console.log('Deleted');
+            Movie_item.remove();
+        } else {
+            console.error('Failed');
+
+        }
+    })
+    .catch(error => { 
+        console.error('Error:', error); 
+    });
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    loadWatchlistItem(); 
+    form.onsubmit = addWatchlistItem; 
+
+});

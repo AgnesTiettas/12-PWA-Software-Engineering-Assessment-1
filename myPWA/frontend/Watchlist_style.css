@@ -132,3 +132,8 @@ button {
     margin-bottom:10px; 
     border-radius: 4px;
 }
+
+select {
+    font-family:'Gill Sans' ;
+    padding:10px;
+}

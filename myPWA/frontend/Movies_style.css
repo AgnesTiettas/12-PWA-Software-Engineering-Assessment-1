@@ -46,11 +46,53 @@
 }
 
 .Genre {
-    color:#505526
+    color:#505526;
+    margin-top:20px;
+    margin-bottom: 0;
+    margin-left: 25px;
 }
 
 body {
     background-color:#ffffE4;
     text-decoration: underline;
 }
+
+.Movie_card {
+    box-shadow:0 2px 4px 0 darkgray; 
+    width:calc(200px - 25px);
+    height:fit-content;
+    float: center;
+    margin:10px;
+    text-align: center;
+
+}
+.Genre_Container{
+    width:100%; 
+    min-height:100vh; 
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Movie_card:hover {
+    box-shadow:0 4px 8px 0 darkgray;
+
+}
+
+.Action1 {
+    width:100%; 
+    height:15%;
+
+
+}
+.container1{
+    padding:2px 16px;
+}
+
+
+
+
 
