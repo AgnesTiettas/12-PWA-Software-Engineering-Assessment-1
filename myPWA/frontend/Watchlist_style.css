@@ -88,6 +88,11 @@ label {
     color:#ffffE4;
     margin-top:5px;
 }
+.Priotity{
+    font-size: 30px;
+    color:#ffffE4;
+    margin-top:10px;
+}
 
 .Add_Note {
     font-size: 30px;
@@ -99,7 +104,7 @@ label {
     margin-top: 15px;
     border-radius: 4px;
     border:1px solid;
-    background: gainsboro;
+    background: white;
 
 
 }
