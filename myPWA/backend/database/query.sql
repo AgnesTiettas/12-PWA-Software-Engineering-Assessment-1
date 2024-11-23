@@ -1,1 +1,1 @@
- select * from WatchlistMovie;
+ select * from Watchlist_Items;

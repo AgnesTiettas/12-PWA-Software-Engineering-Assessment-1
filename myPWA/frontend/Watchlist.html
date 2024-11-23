@@ -22,28 +22,16 @@
         </div> <br>
 
         <div class="form_Container"> 
-            <form id="form"> 
+            <form id="Form"> 
                 <label for="Movie_Name" class="Movie_Name">Movie:</label> <br> 
-                <select name="Movie_Name" id="Movies_Name"> 
-                    <optgroup label="Action">
-                        <option value="httyd">How to train your dragon</option>
-                        <option value="HPATPS">Harry Potter and the philosopher's stone</option>
-                    </optgroup>
+                <input type="text" id="Movie_Name" name="Movie_Name" placeholder="Enter Name of Movie..." required> <br>
 
-                    <optgroup label="Romance">
-                        <option value="Tangled">Tangled (2010)</option>
-                        <option value="Cinderella">Cinderella (2015)</option>
-                        <option value="Corpse_Bride">Corpse Bride (2005)</option>
-                        <option value="Beauty_and_the_Beast">Beauty and the Beast (1991)</option>
 
-                    </optgroup>
-                </select>
-
-                <label for="Priotity" class="Priotity">Priotity </label>
-                <select name="Priotity" id="Priotity"> 
-                    <option value="Movie_Priotity">Low-Watch this year</option>
-                    <option value="Movie_Priotity">Medium-Watch in a couple of months</option>
-                    <option value="Movie_Priotity">High-Watch this week</option>
+                <label for="Priority" class="Priority">Priotity </label>
+                <select name="Priority" id="Priority" required> 
+                    <option value="Low-Watch this year ">Low-Watch this year</option>
+                    <option value="Medium-Watch in a couple of months">Medium-Watch in a couple of months</option>
+                    <option value="High-Watch this week">High-Watch this week</option>
 
                 </select>
                 <label for="Add_Note" class="Add_Note">Notes: </label>
@@ -51,7 +39,7 @@
     
                 <button type="submit">Add To Watchlist</button>
                 <h2 class="list_title">Watchlist</h2>  <!--Added through input -->
-                <div id="list"> 
+                <div id="Movielist"> 
                     <!--Area where movies are added -->
                 </div>
             </form>

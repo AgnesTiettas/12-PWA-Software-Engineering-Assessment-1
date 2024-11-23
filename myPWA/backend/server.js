@@ -8,7 +8,7 @@ const port = 3001;
 
 
 // Middleware
-app.use(express.json()); // Use express.json() for parsing JSON bodies
+app.use(express.json()); 
 app.use(cors());
 
 
@@ -20,10 +20,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.error('Error opening database:', err);
     } else {
         console.log('Connected to SQLite database');
-        db.run(`CREATE TABLE IF NOT EXISTS WatchlistMovie (
+        db.run(`CREATE TABLE IF NOT EXISTS Watchlist_Items (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            Name TEXT,
-            notes TEXT,
+            name TEXT,
+            priority TEXT,
+            notes TEXT
         )`);
     }
 });
@@ -32,11 +33,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // Get a single watchlist_movie by ID
 app.get('/api/Watchlist-Items/:id', (req, res) => {
     const { id } = req.params;
-    db.get('SELECT * FROM WatchlistMovie WHERE id = ?', [id], (err, row) => {
+    db.get('SELECT * FROM Watchlist_Items WHERE id = ?', [id], (err, row) => {
         if (err) {
             res.status(500).send('Error retrieving data');
         } else if (!row) {
-            res.status(404).send('WatchlistMovie not found');
+            res.status(404).send('Watchlist Items not found');
         } else {
             res.status(200).json(row);
         }
@@ -44,11 +45,11 @@ app.get('/api/Watchlist-Items/:id', (req, res) => {
 });
 
 
-// Create a new study session
+// Create a new Watchlist Item
 app.post('/api/Watchlist-Items', (req, res) => {
-    const { Name, notes } = req.body;
-    db.run(`INSERT INTO WatchlistMovie (Name, notes) VALUES (?, ?)`,
-        [Name, notes],
+    const { name, priority,notes } = req.body;
+    db.run(`INSERT INTO Watchlist_Items (Name, Priority, notes) VALUES (?, ?, ?)`,
+        [name, priority , notes],
         function (err) {
             if (err) {
                 res.status(500).send('Error inserting data');
@@ -59,9 +60,9 @@ app.post('/api/Watchlist-Items', (req, res) => {
 });
 
 
-// Get all study sessions
-app.get('/api/study-sessions', (req, res) => {
-    db.all('SELECT * FROM WatchlistMovie', [], (err, rows) => {
+// Get all Watchlist Items
+app.get('/api/Watchlist-Items', (req, res) => {
+    db.all('SELECT * FROM Watchlist_Items', [], (err, rows) => {
         if (err) {
             res.status(500).send('Error retrieving data');
         } else {
@@ -70,17 +71,7 @@ app.get('/api/study-sessions', (req, res) => {
     });
 });
 
-app.delete('/api/study-sessions/:id', (req,res)=> {
-    const {id}=req.params;
-    db.run('DELETE FROM study_sessions WHERE id = ?', [id], function (err) {
-        if (err) {
-            res.status(500).send('Error deleting data');
-        } else {
-            res.status(200).json({ message: 'Study session deleted successfully' });
-        }
-    });
 
-});
 
 
 // Start the server
