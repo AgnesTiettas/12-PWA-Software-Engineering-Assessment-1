@@ -86,7 +86,7 @@ body {
     border-radius: 6px;
     height:100%;
     width: 100%; 
-    background-color:#ffffE4;
+    background-color:#ffffe4ba;
     backface-visibility: hidden;
 
 
@@ -105,5 +105,15 @@ body {
 .Movie_img {
     width:200px;
     height: 300px;
+
+}
+
+
+.GoToWatchlistPg{    /*Go To Watchlist button styling*/
+    background-color:#505526b8;
+    border-radius: 2px;
+    padding:4px;
+    margin-top:10px;
+    
 
 }
