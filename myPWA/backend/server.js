@@ -73,6 +73,23 @@ app.get('/api/Watchlist-Items', (req, res) => {
 
 
 
+//Delete study session
+app.delete('/api/Watchlist-Items/:id', (req, res)=> {
+    const { id } =req.params;
+    db.run(`DELETE FROM Watchlist_Items WHERE id=?`, id, 
+        function (err){
+            if (err) {
+                res.status(500).send('Error deleting data');  
+            }else{
+                res.status(200).send('Deleted successfully');
+            }
+
+        });
+});
+
+
+
+
 
 // Start the server
 app.listen(port, () => {
