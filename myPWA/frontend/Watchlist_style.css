@@ -145,3 +145,12 @@ select {
     font-family:'Gill Sans' ;
     padding:10px;
 }
+
+
+.DeleteBtn{
+    color:red;
+}
+
+.EditBtn {
+    color:#505526;
+}

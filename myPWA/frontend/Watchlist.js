@@ -29,6 +29,9 @@ function addWatchlistItem(event) {
     }
 }
 
+
+//Function to load all items from the watchlist 
+
 function loadWatchlistItem() {
     fetch('http://localhost:3001/api/Watchlist-Items')
         .then(response => response.json())
@@ -38,12 +41,14 @@ function loadWatchlistItem() {
             data.forEach(item => {
                 const Movie_item = document.createElement('div');
                 Movie_item.className= 'Movie-item';
-                Movie_item.innerHTML =`
+
+                // Showcases the sections within the watchlist item 
+                Movie_item.innerHTML =` 
                     <h2>Movie Name:</h2><p>${item.name}</p> <br>
                     <h3>Priority:<br></h3> <p> ${item.priority}</p> <br> 
                     <h3>Notes: <br></h3><p> ${item.notes}</p> 
-                    <button onclick="deleteWatchlistItem(${item.id})">Delete</button> 
-                    <button onclick="editWatchlistItem(${item.id})">Edit</button> 
+                    <button class="DeleteBtn" title="Delete" onclick="deleteWatchlistItem(${item.id})"><i class="fa-solid fa-trash"></i></button> 
+                    <button class="EditBtn" title="Edit" onclick="editWatchlistItem(${item.id})"><i class="fa-solid fa-pen"></i></button> 
                 `;
                 movieList.appendChild(Movie_item);
             });
@@ -55,24 +60,35 @@ function loadWatchlistItem() {
         });
 }
 
+//Function to delete items from the watchlist 
 function deleteWatchlistItem(id) {
-    if(confirm('Are you sure you want to delete this movie from watchlist?')) {
+    if(confirm('Are you sure you want to delete this movie from watchlist?')) { //Displays a message which asks if user is sure they want to delete item.
         fetch(`http://localhost:3001/api/Watchlist-Items/${id}`, 
             {
             method:'DELETE',
         })
         
         .then(() => {
-            console.log('Movie from watchlist deleted');
+            console.log('Movie from watchlist deleted');   //Displays a message in console to confirm that the item was deleted sucessfully. 
             loadWatchlistItem();
         })
         .catch(error => {
-                console.error('Error in deleting:', error);
+                console.error('Error in deleting:', error); //Displays a message in console to confirm that the item was not able to be deleted and displays the error code in the console. 
 
         });
     }
 }
 
+function editWatchlistItem(id) {
+    if(confirm('Are you sure?')) { 
+        fetch( `http://localhost:3001/api/Watchlist-Items${id}`, 
+            { 
+                method:'E'
+                
+            }
+        )
+    }
+}
 
 
 
