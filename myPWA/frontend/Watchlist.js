@@ -1,3 +1,6 @@
+let isEditMode = false; 
+let editID = null; 
+
 //Enables a Movie to added to the watchlist 
 function addWatchlistItem(event) {
     event.preventDefault();
@@ -19,6 +22,8 @@ function addWatchlistItem(event) {
             console.log('Added to watchlist:', data);
             loadWatchlistItem();
             document.getElementById('Form').reset();
+            isEditMode=false;
+            editID=null;
 
         })
         .catch (error => { 
@@ -28,6 +33,9 @@ function addWatchlistItem(event) {
         alert('please fill in all required fields.');
     }
 }
+
+
+
 
 
 //Function to load all items from the watchlist 
@@ -47,7 +55,7 @@ function loadWatchlistItem() {
                     <h2>Movie Name:</h2><p>${item.name}</p> <br>
                     <h3>Priority:<br></h3> <p> ${item.priority}</p> <br> 
                     <h3>Notes: <br></h3><p> ${item.notes}</p> 
-                    <button class="DeleteBtn" title="Delete" onclick="deleteWatchlistItem(${item.id})"><i class="fa-solid fa-trash"></i></button> 
+                    <button class="DeleteBtn" title="Delete" onclick="deleteWatchlistItem(${item.id},event)"><i class="fa-solid fa-trash"></i></button> 
                     <button class="EditBtn" title="Edit" onclick="editWatchlistItem(${item.id})"><i class="fa-solid fa-pen"></i></button> 
                 `;
                 movieList.appendChild(Movie_item);
@@ -61,7 +69,9 @@ function loadWatchlistItem() {
 }
 
 //Function to delete items from the watchlist 
-function deleteWatchlistItem(id) {
+function deleteWatchlistItem(id,event) {
+    event.stopPropagation();  // prevents the form from going through the submission event when item is deleted
+    event.preventDefault();
     if(confirm('Are you sure you want to delete this movie from watchlist?')) { //Displays a message which asks if user is sure they want to delete item.
         fetch(`http://localhost:3001/api/Watchlist-Items/${id}`, 
             {
@@ -80,15 +90,24 @@ function deleteWatchlistItem(id) {
 }
 
 function editWatchlistItem(id) {
-    if(confirm('Are you sure?')) { 
-        fetch( `http://localhost:3001/api/Watchlist-Items${id}`, 
-            { 
-                method:'E'
-                
-            }
-        )
-    }
+    fetch(`http://localhost:3001/api/Watchlist-Items/${id}` )
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('Movie_Name').value = data.name;
+            document.getElementById('Priority').value = data.priority;
+            document.getElementById('Add_Note').value = data.notes;
+            isEditMode=true; 
+            editID=id;
+
+        })
+        .catch(error => {
+                console.error('Error in deleting:', error); //Displays a message in console to confirm that the item was not able to be edited and displays the error code in the console. 
+
+        });
+    
+
 }
+
 
 
 
@@ -98,3 +117,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('Form').onsubmit = addWatchlistItem; 
 
 });
+
+
