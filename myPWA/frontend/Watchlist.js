@@ -10,32 +10,44 @@ function addWatchlistItem(event) {
     const notes= document.getElementById('Add_Note').value; 
 
     if (name && priority && notes) {
-        fetch('http://localhost:3001/api/Watchlist-Items', {
-            method:'POST',
-            headers: { 
-                'Content-Type': 'application/json', 
-            },
-            body:JSON.stringify({name, priority, notes}),
-        })
-        .then(response => response.json())
-        .then(data => { 
-            console.log('Added to watchlist:', data);
-            loadWatchlistItem();
-            document.getElementById('Form').reset();
-            isEditMode=false;
-            editID=null;
-
-        })
-        .catch (error => { 
-            console.error('Error:', error);
-        });
+        if(!isEditMode) {
+            fetch('http://localhost:3001/api/Watchlist-Items', {
+                method:'POST',
+                headers: { 
+                    'Content-Type': 'application/json', 
+                },
+                body:JSON.stringify({name, priority, notes}),
+            })
+            .then(response => response.json())
+            .then(data => { 
+                console.log('Added to watchlist:', data);
+                loadWatchlistItem();
+                document.getElementById('Form').reset();
+                switchToAdd();
+            })
+            .catch (error => { 
+                console.error('Error:', error);
+            });
+        } else {
+            updateWatchlistItem(event);
+        }    
     } else {
         alert('please fill in all required fields.');
     }
 }
 
+function switchToAdd() {
+    isEditMode=false;
+    editID=null;
+    document.querySelector('button[type="submit"]').textContent="Add to Watchlist";
+    document.getElementById('Form').reset();
+}
 
-
+function switchToEdit() {
+    isEditMode=true;
+    document.querySelector('button[type="submit"]').textContent="Update Movie";
+    
+}
 
 
 //Function to load all items from the watchlist 
@@ -68,6 +80,7 @@ function loadWatchlistItem() {
         });
 }
 
+
 //Function to delete items from the watchlist 
 function deleteWatchlistItem(id,event) {
     event.stopPropagation();  // prevents the form from going through the submission event when item is deleted
@@ -83,7 +96,7 @@ function deleteWatchlistItem(id,event) {
             loadWatchlistItem();
         })
         .catch(error => {
-                console.error('Error in deleting:', error); //Displays a message in console to confirm that the item was not able to be deleted and displays the error code in the console. 
+            console.error('Error in deleting:', error); //Displays a message in console to confirm that the item was not able to be deleted and displays the error code in the console. 
 
         });
     }
@@ -96,19 +109,48 @@ function editWatchlistItem(id) {
             document.getElementById('Movie_Name').value = data.name;
             document.getElementById('Priority').value = data.priority;
             document.getElementById('Add_Note').value = data.notes;
-            isEditMode=true; 
-            editID=id;
-
+            
+            isEditMode=true;
+            editID= id; 
+            switchToEdit();
+          
         })
         .catch(error => {
-                console.error('Error in deleting:', error); //Displays a message in console to confirm that the item was not able to be edited and displays the error code in the console. 
+            console.error('Error in getting Movie:', error); //Displays a message in console to confirm that the item was not able to be edited and displays the error code in the console. 
 
         });
     
 
 }
 
+function updateWatchlistItem(event) {
+    event.preventDefault();
 
+    const name= document.getElementById('Movie_Name').value;
+    const priority= document.getElementById('Priority').value;
+    const notes= document.getElementById('Add_Note').value;
+
+
+
+    if(isEditMode && editID !== null) {
+        fetch(`http://localhost:3001/api/Watchlist-Items/${editID}`, {
+            method:'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({ name, priority, notes}),
+
+        })
+        .then(() => {
+            console.log('Movie in watchlist was updated');
+            loadWatchlistItem();
+            switchToAdd();
+        })
+        .catch(error => {
+            console.error('Error in changing the movie in watchlist:', error)
+        });
+    }
+}
 
 
 // Event listeners

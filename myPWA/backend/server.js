@@ -1,5 +1,6 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
 
@@ -8,7 +9,7 @@ const port = 3001;
 
 
 // Middleware
-app.use(express.json()); 
+app.use(bodyParser.json()); 
 app.use(cors());
 
 
@@ -47,8 +48,8 @@ app.get('/api/Watchlist-Items/:id', (req, res) => {
 
 // Create a new Watchlist Item
 app.post('/api/Watchlist-Items', (req, res) => {
-    const { name, priority,notes } = req.body;
-    db.run(`INSERT INTO Watchlist_Items (Name, Priority, notes) VALUES (?, ?, ?)`,
+    const { name, priority, notes } = req.body;
+    db.run(`INSERT INTO Watchlist_Items (Name, Priority, Notes) VALUES (?, ?, ?)`,
         [name, priority , notes],
         function (err) {
             if (err) {
@@ -73,7 +74,7 @@ app.get('/api/Watchlist-Items', (req, res) => {
 
 
 
-//Delete study session
+//Delete Watchlist Item
 app.delete('/api/Watchlist-Items/:id', (req, res)=> {
     const { id } =req.params;
     db.run(`DELETE FROM Watchlist_Items WHERE id=?`, id, 
@@ -89,11 +90,25 @@ app.delete('/api/Watchlist-Items/:id', (req, res)=> {
 
 
 
-
-
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
+//Update Watchlist Item
+app.put('/api/Watchlist-Items/:id', (req, res) => {
+    const { id } = req.params; 
+    const {name, priority, notes} = req.body; 
+    db.run(`UPDATE Watchlist_Items SET Name = ?, Priority = ?, Notes = ? WHERE id = ?`, 
+        [name, priority, notes, id], 
+        function (err) {
+            if(err) {
+                res.status(500).send('Error in updating the data'); 
+            }else {
+                res.status(200).send('Updated successfully');
+
+            }
+        });
+    
+});
 
