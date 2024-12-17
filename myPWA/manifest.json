@@ -1,0 +1,34 @@
+{
+    "name": "Movies for me",
+    "short_name": "MoviesForMe",
+    "start_url": "/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Home.html",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#505526",
+    "icons": [
+        {
+            "src": "Icons/Logo1.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "Icons/Logo2.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "Icons/desktop.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "Icons/mobile.png",
+            "sizes": "720x1280",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ]
+}

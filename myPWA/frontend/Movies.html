@@ -5,12 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Ensures a responsive design, making sure that it can adjust to different screen sizes-->
         <title>Movies for me</title>
         <link rel="stylesheet" href="Movies_style.css"> <!--Link to the CSS page-->
+        <link rel="manifest" href="../manifest.json">
     </head>
 
     <body>
         
         <div class="NavBar">   <!--Creates a navigation bar-->
-            <a class="Logo" href="Home.html">Home</a>
+            <a href="Home.html">Home</a>
             <a href="Movies.html">Movies</a>
             <a href="Watchlist.html">Watchlist</a>
         </div>
@@ -357,9 +358,20 @@
             </div>
 
         </div>
+        <script> 
+        if ('serviceWorker' in navigator) {
+             window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/12-PWA-Software-Engineeing-Assessment-1/myPWA/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+        </script>
 
-        
-    
     </body>
 
 </html>

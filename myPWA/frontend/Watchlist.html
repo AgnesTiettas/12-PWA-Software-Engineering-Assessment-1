@@ -6,12 +6,13 @@
         <title>Movies for me</title>
         <link rel="stylesheet" href="Watchlist_style.css">
         <script src="https://kit.fontawesome.com/6a46cb65ec.js" crossorigin="anonymous"></script>
+        <link rel="manifest" href="../manifest.json">
     </head>
 
     <body>
         
         <div class="NavBar"> <!--Creates a navigation bar-->
-            <a class="Logo" href="Home.html">Home</a>
+            <a href="Home.html">Home</a>
             <a href="Movies.html">Movies</a>
             <a href="Watchlist.html">Watchlist</a>
         
@@ -39,14 +40,42 @@
                 <textarea id="Add_Note" name="Add_Note"></textarea>
     
                 <button type="submit">Add To Watchlist</button>
+                
+                
                 <h2 class="list_title">Watchlist</h2>  <!--Added through input -->
+            
+                <div class="Sort_Container">
+                    <button title="Sort by Priority:Low-High" onclick="sortWatchlist()"><i class="fa-solid fa-sort-down"></i></button>
+                </div>
+
+             
+                
                 <div id="Movielist"> 
                     <!--Area where movies are added -->
                 </div>
             </form>
         </div>
+
+       
         
         <script src="Watchlist.js"></script>
+        <script>
+        
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/12-PWA-Software-Engineeing-Assessment-1/myPWA/service-worker.js')
+                        .then(registration => {
+                            console.log('Service Worker registered with scope:', registration.scope);
+                        })
+                        .catch(error => {
+                            console.log('Service Worker registration failed:', error);
+                        });
+                });
+            }
+        
+        
+        
+        </script>
 
 
     

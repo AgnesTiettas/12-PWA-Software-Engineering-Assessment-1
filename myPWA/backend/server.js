@@ -31,6 +31,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 
+
 // Get a single watchlist_movie by ID
 app.get('/api/Watchlist-Items/:id', (req, res) => {
     const { id } = req.params;
@@ -73,6 +74,11 @@ app.get('/api/Watchlist-Items', (req, res) => {
 });
 
 
+app.get('/api/Watchlist-Items', (req, res) => {
+    const priorities = sortWatchlistItems(watchlistItems);
+    return items.sort((a, b) => priorities.indexOf(a.priority) - priorities.indexOf(b.priority));
+    r
+})
 
 //Delete Watchlist Item
 app.delete('/api/Watchlist-Items/:id', (req, res)=> {
@@ -89,12 +95,6 @@ app.delete('/api/Watchlist-Items/:id', (req, res)=> {
 });
 
 
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
-
 //Update Watchlist Item
 app.put('/api/Watchlist-Items/:id', (req, res) => {
     const { id } = req.params; 
@@ -110,5 +110,11 @@ app.put('/api/Watchlist-Items/:id', (req, res) => {
             }
         });
     
+});
+
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 

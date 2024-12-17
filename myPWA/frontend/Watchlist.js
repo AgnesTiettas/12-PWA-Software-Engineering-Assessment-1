@@ -22,7 +22,7 @@ function addWatchlistItem(event) {
             .then(data => { 
                 console.log('Added to watchlist:', data);
                 loadWatchlistItem();
-                document.getElementById('Form').reset();
+                Form.reset();
                 switchToAdd();
             })
             .catch (error => { 
@@ -48,7 +48,6 @@ function switchToEdit() {
     document.querySelector('button[type="submit"]').textContent="Update Movie";
     
 }
-
 
 //Function to load all items from the watchlist 
 
@@ -152,6 +151,38 @@ function updateWatchlistItem(event) {
     }
 }
 
+//Function to sort by priority 
+function sortWatchlist() {
+    event.preventDefault();
+
+    fetch('http://localhost:3001/api/Watchlist-Items')
+    .then(response => response.json())
+    .then(data => {
+        data.sort((a,b) => {
+            const priorities = ["Low-Watch this year", "Medium-Watch in a couple of months", "High-Watch this week"];
+            return priorities.indexOf(a.priority)-priorities.indexOf(b.priority);  
+        });
+        const movieList = document.getElementById('Movielist');
+        movieList.innerHTML ='';
+        data.forEach(item => {
+            const Movie_item = document.createElement('div');
+            Movie_item.className = 'Movie-item';
+            Movie_item.innerHTML =` 
+            <h2>Movie Name:</h2><p>${item.name}</p> <br>
+            <h3>Priority:<br></h3> <p> ${item.priority}</p> <br> 
+            <h3>Notes: <br></h3><p> ${item.notes}</p> 
+            <button class="DeleteBtn" title="Delete" onclick="deleteWatchlistItem(${item.id},event)"><i class="fa-solid fa-trash"></i></button> 
+            <button class="EditBtn" title="Edit" onclick="editWatchlistItem(${item.id})"><i class="fa-solid fa-pen"></i></button> 
+        `;
+        movieList.appendChild(Movie_item);
+
+        });
+    }) 
+    .catch(error => {
+        console.error('Error in getting watchlist items:', error);
+    })
+
+}
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
