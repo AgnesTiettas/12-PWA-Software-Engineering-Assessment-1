@@ -74,11 +74,6 @@ app.get('/api/Watchlist-Items', (req, res) => {
 });
 
 
-app.get('/api/Watchlist-Items', (req, res) => {
-    const priorities = sortWatchlistItems(watchlistItems);
-    return items.sort((a, b) => priorities.indexOf(a.priority) - priorities.indexOf(b.priority));
-    r
-})
 
 //Delete Watchlist Item
 app.delete('/api/Watchlist-Items/:id', (req, res)=> {

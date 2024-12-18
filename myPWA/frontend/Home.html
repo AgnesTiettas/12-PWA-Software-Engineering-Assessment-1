@@ -6,6 +6,7 @@
         <title>Movies for me</title>
         <link rel="stylesheet" href="Home_Style.css">
         <link rel="manifest" href="../manifest.json">
+
     </head>
 
 
@@ -22,19 +23,23 @@
                 <h2>Your go to movie catalogue for the best kids movies!</h2>
             </div>
         </header>
-        <script> 
+
+        <script>
+        
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/12-PWA-Software-Engineeing-Assessment-1/myPWAservice-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker registration failed:', error);
-                    });
+                    navigator.serviceWorker.register('/12-PWA-Software-Engineeing-Assessment-1/myPWA/service-worker.js')
+                        .then(registration => {
+                            console.log('Service Worker registered with scope:', registration.scope);
+                        })
+                        .catch(error => {
+                            console.log('Service Worker registration failed:', error);
+                        });
                 });
             }
-        </script>    
-
+        
+        
+        
+        </script>
     </body>
 </html>

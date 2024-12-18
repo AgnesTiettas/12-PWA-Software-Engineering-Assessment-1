@@ -3,14 +3,13 @@ const urlsToCache = [
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Watchlist.html',
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Watchlist_style.css',
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Watchlist.js',
-    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Movie.html',
-    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Movie_style.css',
+    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Movies.html',
+    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Movies_style.css',
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Home.html',
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Home_Style.css',
     
 ];
 
-// Installs the service worker
 
 // Installs event
 self.addEventListener('install', event => {
@@ -20,19 +19,28 @@ self.addEventListener('install', event => {
                 console.log('Opened cache');
                 return cache.addAll(urlsToCache);
             })
+            .catch(error => {
+                console.error('Failed to cache:', error);
+            })
     );
 });
+
+
 
 // Fetch requests
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request).then(response => {
             // Return the cached response if found, otherwise fetch from network
-            return response || fetch(event.request).catch(() => caches.match('12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Watchlist.html','12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Home.html', '12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Movie.html'));
+            return response || fetch(event.request).catch(() => {
+                caches.match('/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Watchlist.html');
+
+            }); 
            
         })
     );
 });
+
 
 // Activate the service worker
 
@@ -54,4 +62,3 @@ self.addEventListener('activate', event => {
         })
     );
 });
-
