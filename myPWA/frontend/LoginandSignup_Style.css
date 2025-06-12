@@ -1,0 +1,72 @@
+/*Whole form*/
+* { 
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+/*styles the body section*/
+body { 
+    background-color:white;
+    overflow-y: auto;
+}
+
+
+.LoginandSignup_Container {
+    width:100%;  
+    margin:0;
+    height: 40vh;
+    background-image: url('stg2.jpg');
+    background-position: bottom;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+
+
+.Loginandsignup_title {
+    color: #ffffE4;
+    font-size: 42px;
+    margin-top: 30px;
+    
+}
+
+
+/*Navigation Bar */
+.NavBar {
+    position:absolute;
+    display:flex;
+    justify-content: right;
+    top:0;
+    background-color: transparent;
+    padding: 20px;
+}
+
+.NavBar a {
+    float:right; 
+    font-size:22px; 
+    font-family: 'Gill Sans';
+    color: white;
+    padding: 10px;
+    text-decoration: double;
+    text-align: right;
+}
+
+.NavBar a:hover {
+    background-color: #505526;
+}
+
+.Logo {
+    width:100px;
+    height:100px;
+    margin-right:50px;
+}
+
+
+.LoginandSignuplink{
+    text-align: right;
+
+}
