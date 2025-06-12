@@ -15,32 +15,45 @@ header {
     align-items: center;
     justify-content: center;
 }
-
+/*Navigation Bar */
 .NavBar {
-    position:absolute;
-    display:flex;
-    justify-content: right;
-    top:0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between; 
+    top: 0;
     background-color: transparent;
     padding: 20px;
+
 }
 
 .NavBar a {
-    float:right; 
+    float:left; 
+    text-align: center;
     font-size:22px; 
     font-family: 'Gill Sans';
     color: white;
     padding: 10px;
     text-decoration: double;
-    text-align: right;
+
 }
 
 .NavBar a:hover {
     background-color: #505526;
+    border-radius: 50px;
 }
+
+.logintitle{
+    margin-left:auto;
+    
+}
+
 
 .content {
     color: white; 
     font-size:4vmin; 
     text-align:center;
 }
+
+
