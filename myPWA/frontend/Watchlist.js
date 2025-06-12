@@ -101,6 +101,7 @@ function deleteWatchlistItem(id,event) {
     }
 }
 
+//Function to edit items from the watchlist 
 function editWatchlistItem(id) {
     fetch(`http://localhost:3001/api/Watchlist-Items/${id}` )
         .then(response => response.json())
@@ -122,6 +123,7 @@ function editWatchlistItem(id) {
 
 }
 
+//Function to update items from the watchlist 
 function updateWatchlistItem(event) {
     event.preventDefault();
 
