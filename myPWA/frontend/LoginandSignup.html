@@ -26,13 +26,30 @@
 
 
         <div class="container">
-            <div class="form-box">
-                <h1>sign up</h1>
-                <form> 
+            <div class="form-header">
+                <div class="title">
+                    <div class="title-login">Login</div>
+
+                </div>
+                <form class="login-form"> 
                     <div class="input-group">
                         <div class="input-field">
-                            
+                            <input type="text" class="input-field" id="log-email">
+                            <label for="log-email">Email</label>
+                            <i class="fa-solid fa-envelope"></i>
+                             
                         </div>
+                        <div class="input-field">
+                            <input type="password" class="input-password" id="logpass">
+                            <label for="logpass" class="label">Password</label>
+                            <i class="fa-solid fa-lock"></i>
+
+                        </div>
+
+                        <div class="input-field">
+                            <button class="submitbtn" id="SignInBtn"><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+                        </div>
+                
                     </div>
                 </form>
             </div>
