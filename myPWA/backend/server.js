@@ -2,7 +2,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const path = require('path');
 
 const app = express();
 const port = 3001;
@@ -13,8 +13,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
+
+
+
 // Set up SQLite database
-const path = require('path');
+
 const dbPath = path.join(__dirname, 'database', 'Watchlist_log.db');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
@@ -113,4 +116,3 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-//test

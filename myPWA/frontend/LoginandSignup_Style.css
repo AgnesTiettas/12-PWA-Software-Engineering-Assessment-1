@@ -106,7 +106,7 @@ a:hover{
     position:relative;
     display:flex; 
     flex-direction:column; 
-    margin: 20px 0; 
+    margin: 10px 0; 
 }
 .input-field{
     width:100%; 
@@ -189,9 +189,47 @@ a:hover{
     font-weight: 500;
 }
 
+#Password-message {
+    display:none; 
+    background:#f1f1f1;
+    position:relative;
+    padding:2.5px; 
+    margin-top:10px; 
 
+
+}
+
+#Password-message p {
+    padding:5px 35px; 
+
+}
+
+.Valid{
+    color:green;
+}
+
+.Valid:before {
+    position:relative; 
+    left:-35px; 
+    content:"✔";
+
+
+}
+
+.Invalid{
+    color:red;
+    padding:5px;
+
+}
+
+.Invalid:before{
+    position:relative; 
+    left:-35px; 
+    content:"✖";
+
+}
 @media only screen and (max-width: 564px){
-    .wrapper{
+    .container{
         margin:20px;
     }
 }
