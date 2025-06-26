@@ -21,15 +21,15 @@
                 </div>
             </div>
 
-            <form class="login-form"> 
+            <form class="login-form" id="loginForm" > 
                 <div class="input-box">
-                    <input type="text" class="input-field" id="log-username" required>
+                    <input type="text" class="input-field" id="log-username" name="log-username"required>
                     <label for="log-username" class="label">Username</label>
                     <i class="fa-solid fa-user form-icon"></i>
                             
                 </div>
                 <div class="input-box">
-                    <input type="password" class="input-field" id="logpass" required>
+                    <input type="password" class="input-field" id="logpass" name="logpass" required>
                     <label for="logpass" class="label">Password</label>
                     <i class="fa-solid fa-lock form-icon" id="togglepassword"></i>
 
@@ -37,7 +37,7 @@
 
 
                 <div class="input-box">
-                    <button class="submitbtn" id="SignInBtn">Login</button>
+                    <button type="submit" class="submitbtn" id="SignInBtn">Login</button>
                 </div>
                 <div class="switch-form"> 
                     <span> Don't have an account? <a href="#" onclick="registerFunction()">Register Here</a></span>
@@ -46,21 +46,21 @@
             
             </form>
 
-            <form class="register-form">
+            <form class="register-form" id="registerForm" >
                 <div class="input-box">
-                    <input type="text" class="input-field" id="reg-username" required> 
+                    <input type="text" class="input-field" id="reg-username" name="reg-username"required> 
                     <label for="reg-username" class="label"> Username:</label>
                     <i class="fa-solid fa-user form-icon"></i>
 
                 </div>
                 <div class="input-box"> 
-                    <input type="email" class="input-field" id="reg-email" required> 
+                    <input type="email" class="input-field" id="reg-email" name="reg-email"required> 
                     <label for="reg-email" class="label"> Email: </label>
                     <i class="fa-solid fa-envelope form-icon"></i>
                 </div>
 
                 <div class="input-box"> 
-                    <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="input-field" id="reg-pass" required>
+                    <input type="password" name="reg-pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="input-field" id="reg-pass" required>
                     <label for="reg-pass" class="label" id="Password">Password</label>
                     <div id="Password-message">
                         <h4>Password must contain the following:</h4>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="input-box"> 
-                    <button class="submitbtn" id="SignUpBtn">Sign Up </button>
+                    <button class="submitbtn" id="SignUpBtn" type="submit">Sign Up </button>
                 </div>
 
                 <div class="switch-form"> 

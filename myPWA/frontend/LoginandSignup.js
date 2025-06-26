@@ -9,27 +9,27 @@ const signinBtn= document.querySelector("#SignInBtn");
 
 function loginFunction(){
     loginform.style.left="50%";
-    loginform.style.opacity=1; 
+    loginform.style.display="block"; 
     registerForm.style.left= "150%"; 
-    registerForm.style.opacity=0; 
+    registerForm.style.display="none"; 
     container.style.height="500px"; 
     loginTitle.style.height="50%"; 
-    loginTitle.style.opacity=1; 
+    loginTitle.style.display="block"; 
     registerTitle.style.top="50px"; 
-    registerTitle.style.opacity= 0; 
+    registerTitle.style.display= "none"; 
     
 }
 
 function registerFunction() {
     loginform.style.left="-50%";
-    loginform.style.opacity=0; 
+    loginform.style.display="none"; 
     registerForm.style.left= "50%"; 
-    registerForm.style.opacity=1; 
+    registerForm.style.display="block"; 
     container.style.height="580px"; 
     loginTitle.style.height="-60%"; 
-    loginTitle.style.opacity=0; 
+    loginTitle.style.display="none"; 
     registerTitle.style.top="50%"; 
-    registerTitle.style.opacity= 1; 
+    registerTitle.style.display= "block"; 
 
 }
 
@@ -91,3 +91,36 @@ myInput.onkeyup = function() {
     length.classList.add("Invalid");
   }
 }
+
+//Registration form submission
+
+registerForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+    const Username = document.getElementById("reg-username").value;
+    const Email = document.getElementById("reg-email").value
+    const Password = document.getElementById("reg-pass").value;
+    
+    //Allows for the server to access the data
+
+    fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Username,Email, Password }) 
+    })
+    .then(response => {
+        if (response.ok) {
+            alert( "Your registration was successful! " + Username);
+            loginFunction(); 
+        } else {
+            return response.text().then(text => { throw new Error(text); });
+        }
+    })
+
+    .catch(error => {
+        console.error("Signup error:", error.message);
+        alert("Signup failed: " + error.message);
+    });
+});

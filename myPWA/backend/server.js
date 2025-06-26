@@ -11,10 +11,81 @@ const port = 3001;
 // Middleware
 app.use(bodyParser.json()); 
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false })); 
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+const AccountdbPath = path.join(__dirname, 'database', 'Account.db');
+
+const Accountdb = new sqlite3.Database(AccountdbPath, (err) => {
+    if (err) {
+        console.error('Error opening database:', err);
+    } else {
+        console.log('Connected to SQLite database');
+        Accountdb.run(`CREATE TABLE IF NOT EXISTS Users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            Username TEXT,
+            Email TEXT,
+            Password TEXT
+        )`, (err) => {
+            if (err) {
+                console.error('Error creating Users table:', err.message);
+            }else{
+                console.log('Users table created')
+            }
+        });
+    }
+});
+
+app.get('/', (req,res) => res.redirect('/login'));
+
+app.get('/login', (req,res) => { 
+    res.sendFile(path.join(__dirname,'../frontend/LoginandSignup.html'));
+});
+app.get('/register', (req, res) => {
+      res.sendFile(path.join(__dirname,'../frontend/LoginandSignup.html'));
+
+});
+    
+
+//Register Users 
+app.post('/register', async(req,res) => {
+    const { Username, Email, Password} = req.body;
+
+    const sql = `INSERT INTO Users(Username, Email, Password) Values(?,?,?)`;
+    Accountdb.run(sql, [Username, Email, Password], (err) => {
+        if(err) {
+            return res.send('Error:', + err.message);
+        }
+        return res.send('User registered securely! ');
+
+    });
+
+});
+
+//Login User
 
 
+app.post('/login', (req, res) => {
+    const {Username, Password} =req.body;
 
+    const sql = `SELECT * FROM Users WHERE Username=?`;
+    Accountdb.get(sql, [Username], async (err, row) => {
+        if (err) {
+            console.error('Error' + err.message);
+        }
+        if (!row) {
+            return res.send('User not found.');
+        }
 
+        if (Password===row.Password) {
+            res.send(`Welcome, ${Username}!`);
+        } else{
+            res.send('Incorrect Details');
+        }
+        
+    });
+});
 
 // Set up SQLite database
 
