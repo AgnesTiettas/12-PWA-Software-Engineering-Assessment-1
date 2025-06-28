@@ -8,51 +8,56 @@ const signinBtn= document.querySelector("#SignInBtn");
 
 
 function loginFunction(){
-    loginform.style.left="50%";
-    loginform.style.display="block"; 
-    registerForm.style.left= "150%"; 
-    registerForm.style.display="none"; 
-    container.style.height="500px"; 
-    loginTitle.style.height="50%"; 
-    loginTitle.style.display="block"; 
-    registerTitle.style.top="50px"; 
-    registerTitle.style.display= "none"; 
+  registerForm.reset(); //Makes the register form reset
+  // Changes the display so that only the login form is visible
+  loginform.style.left="50%";
+  loginform.style.display="block"; 
+  registerForm.style.left= "150%"; 
+  registerForm.style.display="none"; 
+  container.style.height="500px"; 
+  loginTitle.style.height="50%"; 
+  loginTitle.style.display="block"; 
+  registerTitle.style.top="50px"; 
+  registerTitle.style.display= "none"; 
     
 }
 
 function registerFunction() {
-    loginform.style.left="-50%";
-    loginform.style.display="none"; 
-    registerForm.style.left= "50%"; 
-    registerForm.style.display="block"; 
-    container.style.height="580px"; 
-    loginTitle.style.height="-60%"; 
-    loginTitle.style.display="none"; 
-    registerTitle.style.top="50%"; 
-    registerTitle.style.display= "block"; 
+  loginform.reset(); //Make the login form reset
+  // Changes the display so that only the register form is visible
+  loginform.style.left="-50%";
+  loginform.style.display="none"; 
+  registerForm.style.left= "50%"; 
+  registerForm.style.display="block"; 
+  container.style.height="580px"; 
+  loginTitle.style.height="-60%"; 
+  loginTitle.style.display="none"; 
+  registerTitle.style.top="50%"; 
+  registerTitle.style.display= "block"; 
 
 }
 
-
+//Input Validation 
 var myInput = document.getElementById("reg-pass");
 var letter = document.getElementById("letter");
 var capital=document.getElementById("capital");
 var number=document.getElementById("number");
 var length=document.getElementById("length");
 
-//Display message box
+//Display the message box
 myInput.onfocus = function() {
-    document.getElementById("Password-message").style.display="block";
+  document.getElementById("Password-message").style.display="block";
 
 }
 
 //Hide message box 
 myInput.onblur = function() {
-    document.getElementById("Password-message").style.display ="none"; 
+  document.getElementById("Password-message").style.display ="none"; 
 
 }
 myInput.onkeyup = function() {
-  // Validate lowercase letters
+
+  // Validate the lowercase letters
   var lowerCaseLetters = /[a-z]/g;
   if(myInput.value.match(lowerCaseLetters)) {
     letter.classList.remove("Invalid");
@@ -62,7 +67,7 @@ myInput.onkeyup = function() {
     letter.classList.add("Invalid");
 }
 
-  // Validate capital letters
+  // Validate for capital letters
   var upperCaseLetters = /[A-Z]/g;
   if(myInput.value.match(upperCaseLetters)) {
     capital.classList.remove("Invalid");
@@ -72,7 +77,7 @@ myInput.onkeyup = function() {
     capital.classList.add("Invalid");
   }
 
-  // Validate numbers
+  // Validate the numbers
   var numbers = /[0-9]/g;
   if(myInput.value.match(numbers)) {
     number.classList.remove("Invalid");
@@ -82,7 +87,7 @@ myInput.onkeyup = function() {
     number.classList.add("Invalid");
   }
 
-  // Validate length
+  // Validate the length
   if(myInput.value.length >= 8) {
     length.classList.remove("Invalid");
     length.classList.add("Valid");
@@ -93,7 +98,6 @@ myInput.onkeyup = function() {
 }
 
 //Registration form submission
-
 registerForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
@@ -108,11 +112,11 @@ registerForm.addEventListener("submit", function(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Username,Email, Password }) 
+        body: JSON.stringify({ Username, Email, Password }) 
     })
     .then(response => {
         if (response.ok) {
-            alert( "Your registration was successful! " + Username);
+            alert( "Your registration was successful!" );
             loginFunction(); 
         } else {
             return response.text().then(text => { throw new Error(text); });
@@ -123,4 +127,36 @@ registerForm.addEventListener("submit", function(event) {
         console.error("Signup error:", error.message);
         alert("Signup failed: " + error.message);
     });
+});
+
+
+//Login Form functionality 
+loginform.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const Username = document.getElementById("log-username").value;
+  const Password = document.getElementById("logpass").value;
+    
+    //Allows for the server to access the data
+
+  fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ Username, Password }) 
+  })
+  .then(response => response.text()) 
+  .then(message => {
+    if(message.includes("Welcome")) {
+      alert("Login Successful")
+      window.location.href ="Home.html"; //Redirect page when successful
+    } else{
+      alert(message);
+    }
+  })
+  .catch(error => {
+      console.error("Login error:", error.message);
+      alert("Login failed: " + error.message);
+  });
 });

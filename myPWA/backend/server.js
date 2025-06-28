@@ -3,9 +3,11 @@ const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const bcrypt =require('bcrypt'); //For hashing the passwords
 
 const app = express();
 const port = 3001;
+const saltRounds =10;
 
 
 // Middleware
@@ -15,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-const AccountdbPath = path.join(__dirname, 'database', 'Account.db');
 
+const AccountdbPath = path.join(__dirname, 'database', 'Account.db');
 const Accountdb = new sqlite3.Database(AccountdbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err);
@@ -51,21 +53,38 @@ app.get('/register', (req, res) => {
 //Register Users 
 app.post('/register', async(req,res) => {
     const { Username, Email, Password} = req.body;
-
-    const sql = `INSERT INTO Users(Username, Email, Password) Values(?,?,?)`;
-    Accountdb.run(sql, [Username, Email, Password], (err) => {
+    //Checking for exisiting username and email 
+    const checkSql= 'SELECT * FROM Users WHERE Username =? OR Email =?';
+    Accountdb.get(checkSql, [Username, Email], async (err, row) => {
         if(err) {
-            return res.send('Error:', + err.message);
+            return res.status(500).send('An error occured', + err) ;
         }
-        return res.send('User registered securely! ');
+        if (row) {
+            return res.status(400).send('Username or Email already in use.');
+        }
+    })
+    try {
+        const hashedPassword = await bcrypt.hash(Password, saltRounds); // Hashes using brcypt
+        const Insertsql = `INSERT INTO Users(Username, Email, Password) Values(?,?,?)`; //Uses parametersied query to store User data
+        Accountdb.run(Insertsql, [Username, Email, hashedPassword], (err) => {
+            if(err) {
+                return res.send('Error:', + err.message); // Error Handling
+            } else {
+                return res.send('User registered! ');
+            }
 
-    });
+        });
+    }catch (hashErr) {
+        console.error('Hashing error:' + hashErr.message)
+    };
 
 });
 
+   
+
+
+
 //Login User
-
-
 app.post('/login', (req, res) => {
     const {Username, Password} =req.body;
 
@@ -75,10 +94,10 @@ app.post('/login', (req, res) => {
             console.error('Error' + err.message);
         }
         if (!row) {
-            return res.send('User not found.');
+            return res.status(404).send('User not found.');
         }
-
-        if (Password===row.Password) {
+        const Passwordmatch =await bcrypt.compare(Password,row.Password);
+        if (Passwordmatch) {
             res.send(`Welcome, ${Username}!`);
         } else{
             res.send('Incorrect Details');
