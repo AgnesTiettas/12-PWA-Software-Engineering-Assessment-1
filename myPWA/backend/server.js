@@ -26,7 +26,7 @@ const Accountdb = new sqlite3.Database(AccountdbPath, (err) => {
         console.log('Connected to SQLite database');
         Accountdb.run(`CREATE TABLE IF NOT EXISTS Users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            Username TEXT,
+            Username TEXT UNIQUE,
             Email TEXT,
             Password TEXT
         )`, (err) => {
@@ -54,29 +54,31 @@ app.get('/register', (req, res) => {
 app.post('/register', async(req,res) => {
     const { Username, Email, Password} = req.body;
     //Checking for exisiting username and email 
-    const checkSql= 'SELECT * FROM Users WHERE Username =? OR Email =?';
-    Accountdb.get(checkSql, [Username, Email], async (err, row) => {
+    Accountdb.get('SELECT * FROM Users WHERE Username=? OR Email =?', [Username, Email], async (err, row) => {
         if(err) {
-            return res.status(500).send('An error occured', + err) ;
-        }
+            return res.status(500).send('Database Error');
+        } 
         if (row) {
-            return res.status(400).send('Username or Email already in use.');
+            if (row.Username=== Username) {
+                return res.status(409).send('Username already exists, try again.');
+
+            }else if (row.Email === Email) {
+                return res.status(409).send('Email already exists.');
+            }
         }
-    })
-    try {
+
+   
+
         const hashedPassword = await bcrypt.hash(Password, saltRounds); // Hashes using brcypt
         const Insertsql = `INSERT INTO Users(Username, Email, Password) Values(?,?,?)`; //Uses parametersied query to store User data
         Accountdb.run(Insertsql, [Username, Email, hashedPassword], (err) => {
             if(err) {
-                return res.send('Error:', + err.message); // Error Handling
+                return res.status(500).send('Error:' + err.message); // Error Handling
             } else {
                 return res.send('User registered! ');
             }
-
         });
-    }catch (hashErr) {
-        console.error('Hashing error:' + hashErr.message)
-    };
+    });
 
 });
 
@@ -85,7 +87,7 @@ app.post('/register', async(req,res) => {
 
 
 //Login User
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const {Username, Password} =req.body;
 
     const sql = `SELECT * FROM Users WHERE Username=?`;
@@ -205,4 +207,5 @@ app.put('/api/Watchlist-Items/:id', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
 

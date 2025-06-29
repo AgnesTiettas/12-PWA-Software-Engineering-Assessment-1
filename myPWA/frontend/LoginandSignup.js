@@ -37,6 +37,7 @@ function registerFunction() {
 
 }
 
+
 //Input Validation 
 var myInput = document.getElementById("reg-pass");
 var letter = document.getElementById("letter");
@@ -65,7 +66,7 @@ myInput.onkeyup = function() {
   } else {
     letter.classList.remove("Valid");
     letter.classList.add("Invalid");
-}
+  }
 
   // Validate for capital letters
   var upperCaseLetters = /[A-Z]/g;
@@ -101,40 +102,66 @@ myInput.onkeyup = function() {
 registerForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
-    const Username = document.getElementById("reg-username").value;
-    const Email = document.getElementById("reg-email").value
-    const Password = document.getElementById("reg-pass").value;
-    
+  const Username = document.getElementById("reg-username").value;
+  const Email = document.getElementById("reg-email").value
+  const Password = document.getElementById("reg-pass").value;
+
     //Allows for the server to access the data
+  fetch('http://localhost:3001/register', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ Username, Email, Password }) 
+  })
+  .then(response => {
+    if (response.ok) {
+      alert( "Your registration was successful!" );
+      loginFunction(); 
+    } else {
+      return response.text().then(text => { throw new Error(text); });
+    }
+  })
 
-    fetch('http://localhost:3001/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ Username, Email, Password }) 
-    })
-    .then(response => {
-        if (response.ok) {
-            alert( "Your registration was successful!" );
-            loginFunction(); 
-        } else {
-            return response.text().then(text => { throw new Error(text); });
-        }
-    })
+  .catch(error => {
+    console.error("Signup error:", error.message);
 
-    .catch(error => {
-        console.error("Signup error:", error.message);
-        alert("Signup failed: " + error.message);
-    });
+    const usernameField = document.getElementById("reg-username");
+    const UsernameError= document.getElementById("usernameerror");
+    const emailError= document.getElementById("emailerror");
+    const emailField = document.getElementById("reg-email");
+
+    if(error.message.includes("Username already exists")) {
+      usernameField.classList.add("error");
+      UsernameError.style.display ="block";
+      UsernameError.textContent= "Username already exists. Try a different username";
+    } else if (error.message.includes("Email already exists")) {
+      emailField.classList.add("error");
+      emailError.style.display ="block";
+      emailError.textContent="Try a different Email";
+    }else {
+       alert("Signup failed: " + error.message);
+    }
+  });
 });
+
+//hide visiblity of the error message for Usernames which are repeated
+document.getElementById("reg-username").addEventListener("input", function(){
+  this.classList.remove("error");
+  document.getElementById("usernameerror").style.display ="none";
+})
+
+document.getElementById("reg-email").addEventListener("input", function(){
+  this.classList.remove("error");
+  document.getElementById("emailerror").style.display ="none";
+})
 
 
 //Login Form functionality 
 loginform.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  const Username = document.getElementById("log-username").value;
+  const Username = document.getElementById("log-username").value.trim(); //Gets rid of whitespace
   const Password = document.getElementById("logpass").value;
     
     //Allows for the server to access the data
@@ -160,3 +187,5 @@ loginform.addEventListener("submit", function(event) {
       alert("Login failed: " + error.message);
   });
 });
+
+
