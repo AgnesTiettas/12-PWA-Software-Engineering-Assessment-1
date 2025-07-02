@@ -23,7 +23,7 @@ const Accountdb = new sqlite3.Database(AccountdbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err);
     } else {
-        console.log('Connected to SQLite database');
+        console.log('Connected to Account SQLite database');
         Accountdb.run(`CREATE TABLE IF NOT EXISTS Users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             Username TEXT UNIQUE,
@@ -82,8 +82,6 @@ app.post('/register', async(req,res) => {
 
 });
 
-   
-
 
 
 //Login User
@@ -108,14 +106,14 @@ app.post('/login', async (req, res) => {
     });
 });
 
-// Set up SQLite database
+// Set up SQLite database for Watchlist 
 
 const dbPath = path.join(__dirname, 'database', 'Watchlist_log.db');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err);
     } else {
-        console.log('Connected to SQLite database');
+        console.log('Connected to Watchlist SQLite database');
         db.run(`CREATE TABLE IF NOT EXISTS Watchlist_Items (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,

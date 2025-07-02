@@ -7,6 +7,10 @@ const urlsToCache = [
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Movies_style.css',
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Home.html',
     '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Home_Style.css',
+    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/LoginandSignup.html',
+    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/LoginandSignup.css',
+    '/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/LoginandSignup.js',
+    
     
 ];
 
@@ -34,6 +38,7 @@ self.addEventListener('fetch', event => {
             // Return the cached response if found, otherwise fetch from network
             return response || fetch(event.request).catch(() => {
                 caches.match('/12-PWA-Software-Engineeing-Assessment-1/myPWA/frontend/Watchlist.html');
+                
 
             }); 
            

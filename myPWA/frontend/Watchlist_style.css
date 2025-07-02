@@ -37,16 +37,18 @@ body {
 
 /*Navigation Bar */
 .NavBar {
-    position:absolute;
-    display:flex;
-    justify-content: right;
-    top:0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between; 
+    top: 0;
     background-color: transparent;
     padding: 20px;
-}
 
+}
 .NavBar a {
-    float:right; 
+    float:left; 
     font-size:22px; 
     font-family: 'Gill Sans';
     color: white;
@@ -57,6 +59,12 @@ body {
 
 .NavBar a:hover {
     background-color: #505526;
+    border-radius: 50px;
+}
+
+.logintitle{
+    margin-left:auto;
+    
 }
 
 .Logo {
