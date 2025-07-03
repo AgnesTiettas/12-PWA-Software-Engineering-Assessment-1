@@ -3,11 +3,11 @@ const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const bcrypt =require('bcrypt'); //For hashing the passwords
+const bcrypt =require('bcrypt'); //A password hashing function 
 
 const app = express();
 const port = 3001;
-const saltRounds =10;
+const saltRounds =10; //Increases the uniqueness of the hashes, increases the complexity of the hashing. 
 
 
 // Middleware
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-
+// Set up SQLite database for the Account 
 const AccountdbPath = path.join(__dirname, 'database', 'Account.db');
 const Accountdb = new sqlite3.Database(AccountdbPath, (err) => {
     if (err) {
@@ -39,11 +39,15 @@ const Accountdb = new sqlite3.Database(AccountdbPath, (err) => {
     }
 });
 
+//redirects the root 
 app.get('/', (req,res) => res.redirect('/login'));
 
+//Serves the login page 
 app.get('/login', (req,res) => { 
     res.sendFile(path.join(__dirname,'../frontend/LoginandSignup.html'));
 });
+
+//Serves the registration page 
 app.get('/register', (req, res) => {
       res.sendFile(path.join(__dirname,'../frontend/LoginandSignup.html'));
 
@@ -66,8 +70,6 @@ app.post('/register', async(req,res) => {
                 return res.status(409).send('Email already exists.');
             }
         }
-
-   
 
         const hashedPassword = await bcrypt.hash(Password, saltRounds); // Hashes using brcypt
         const Insertsql = `INSERT INTO Users(Username, Email, Password) Values(?,?,?)`; //Uses parametersied query to store User data

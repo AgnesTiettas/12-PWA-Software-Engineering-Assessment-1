@@ -123,7 +123,7 @@ myInput.onkeyup = function() { //event listner which watches for when the user r
 registerForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  const Username = document.getElementById("reg-username").value;
+  const Username = document.getElementById("reg-username").value.trim(); //Sanitisation, gets rid of additional whitespace.
   const Email = document.getElementById("reg-email").value
   const Password = document.getElementById("reg-pass").value;
 
@@ -192,7 +192,7 @@ loginform.addEventListener("submit", function(event) {
   const now = Date.now(); // assigns current timestap in milliseconds
 
   if(lockout && now < lockouttime) {
-    const MinutesLeft = Math.ceil((lockouttime -now ) /60000); //Displays the time remaining in minutes. 
+    const MinutesLeft = Math.ceil((lockouttime -now ) /60000); //Displays the time remaining in minutes. Math.ceil, rounds number up to the nearest whole number
     passLimitDiv.textContent = `Too many failed attempts. Try again in ${MinutesLeft} minute(s).`; //Dislays error message.
    
     return;
@@ -206,7 +206,7 @@ loginform.addEventListener("submit", function(event) {
 
 
 
-  const Username = document.getElementById("log-username").value.trim(); //Gets rid of whitespace
+  const Username = document.getElementById("log-username").value.trim(); //Sanitisation: Gets rid of whitespace
   const Password = document.getElementById("logpass").value;
 
   
